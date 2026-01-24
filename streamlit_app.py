@@ -1,4 +1,5 @@
 import streamlit as st
+from pathlib import Path
 
 import pandas as pd
 import numpy as np
@@ -35,8 +36,20 @@ def handle_change_model():
 
 st.title("Multiclass CLassification implementation with different models")
 
-st.title("Select Model")
+file_path = Path("/train.csv")
 
+if file_path.is_file():
+    with open(file_path, "rb") as f:
+        st.download_button(
+            label="Click here to download training csv",
+            data=f.read(), # The data to be downloaded
+            file_name="train.csv", # The default file name for the user
+            mime="text/csv" # The MIME type
+        )
+else:
+    st.error(f"File not found at specified location: {file_path}")
+
+st.title("Select Model")
 # Define the options for the dropdown
 options = [ "All","Logistic Regression", "Decision Tree", "K-Nearest Neighbor Classifier","Naive Bayes Classifier - Gaussian", "Ensemble Model - Random Forest","Ensemble Model - XGBoost"]
 
