@@ -35,7 +35,7 @@ def handle_change_model():
         trainModel(train_df)
 
 st.title("Multiclass CLassification implementation with different models")
-
+_ = """
 file_path = Path("/train.csv")
 
 if file_path.is_file():
@@ -48,6 +48,7 @@ if file_path.is_file():
         )
 else:
     st.error(f"File not found at specified location: {file_path}")
+"""
 
 st.title("Select Model")
 # Define the options for the dropdown
