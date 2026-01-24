@@ -38,7 +38,7 @@ st.title("Multiclass CLassification implementation with different models")
 st.title("Select Model")
 
 # Define the options for the dropdown
-options = [ "Logistic Regression", "Decision Tree", "K-Nearest Neighbor Classifier","Naive Bayes Classifier - Gaussian", "Ensemble Model - Random Forest","Ensemble Model - XGBoost"]
+options = [ "All","Logistic Regression", "Decision Tree", "K-Nearest Neighbor Classifier","Naive Bayes Classifier - Gaussian", "Ensemble Model - Random Forest","Ensemble Model - XGBoost"]
 
 # Create the dropdown menu using st.selectbox
 selected_option = st.selectbox(
@@ -90,6 +90,8 @@ def trainModel(train_df):
     #START
     #st.empty()
     #container.empty()
+    results = []
+
     last_column_name = train_df.columns[-1]
     #print('last column name:  ',last_column_name)
     X = train_df.drop(columns=[last_column_name])
@@ -126,7 +128,7 @@ def trainModel(train_df):
     }
     for name, model in models.items():
         
-        if(name==selected_option):
+        if(name==selected_option or "All"==selected_option):
             model.fit(X_train_scaled, y_train)
             y_pred = model.predict(X_test_scaled)
 
@@ -137,7 +139,6 @@ def trainModel(train_df):
             else:
                 auc_score = np.nan
             
-            results = []
             results.append({
                 "Model": name,
                 "Accuracy": accuracy_score(y_test, y_pred),
